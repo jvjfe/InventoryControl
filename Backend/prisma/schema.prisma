@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          BigInt   @id @default(autoincrement())
+  name        String
+  description String
+  stock       Int
+  status      String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  salesItems    SalesItem[]
+  purchaseItems PurchaseItem[]
+}
+
+model Sale {
+  id            BigInt   @id @default(autoincrement())
+  customer_name String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  sales_items SalesItem[]
+}
+
+model SalesItem {
+  id         BigInt   @id @default(autoincrement())
+  sales_id   BigInt
+  product_id BigInt
+  qty_total  Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  sale    Sale    @relation(fields: [sales_id], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+}
+
+model PurchaseOrder {
+  id            BigInt   @id @default(autoincrement())
+  supplier_name String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  purchase_items PurchaseItem[]
+}
+
+model PurchaseItem {
+  id          BigInt   @id @default(autoincrement())
+  purchase_id BigInt
+  product_id  BigInt
+  qty_total   Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  purchase PurchaseOrder @relation(fields: [purchase_id], references: [id], onDelete: Cascade)
+  product  Product       @relation(fields: [product_id], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id   Int    @id @default(autoincrement())
+  name String
+  city String
+}
