@@ -1,12 +1,10 @@
+// npx nodemon ./src/server.js
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import chalk from "chalk"; // Apenas para colorir o Console
-import morgan from "morgan"; // Para logar cada requisição HTTP no meu terminal
+import chalk from "chalk";
+import morgan from "morgan";
 
-import createUser from "./user/createUser.js";
-import { getUsers, getUserById } from "./user/getUser.js";
-import updateUser from "./user/updateUser.js";
-import deleteUser from "./user/deleteUser.js";
+import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -14,6 +12,7 @@ const PORT = 3000;
 
 app.use(express.json());
 
+// Middleware de logs colorido
 app.use(morgan((tokens, req, res) => {
     return [
         chalk.blueBright(`[${tokens.method(req, res)}]`),
@@ -23,12 +22,8 @@ app.use(morgan((tokens, req, res) => {
     ].join(' ');
 }));
 
-// Rotas de usuários
-app.post('/users', (req, res) => createUser(req, res, prisma));
-app.get('/users', (req, res) => getUsers(req, res, prisma));
-app.get('/users/:id', (req, res) => getUserById(req, res, prisma));
-app.put('/users/:id', (req, res) => updateUser(req, res, prisma));
-app.delete('/users/:id', (req, res) => deleteUser(req, res, prisma));
+// Use o arquivo separado de rotas
+app.use('/users', userRoutes(prisma));
 
 // Inicialização do servidor
 app.listen(PORT, () => {
