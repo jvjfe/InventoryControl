@@ -10,15 +10,15 @@ InventoryControl is a project developed to manage inventory using **Express**, *
 
 - Node.js (v22.14.0)  
 - PostgreSQL (v14)
-- Prisma (6.6.0)
+- Prisma (v6.6.0)
 
 ### Other NPM Packages
 
-- Swegger (5.4.1)
-- Express (5.1.0)
-- Chalk (5.4.1)
-- Morgan (1.10.0)
-- Nodemon (3.1.10)
+- Swegger (v5.4.1)
+- Express (v5.1.0)
+- Chalk (v5.4.1)
+- Morgan (v1.10.0)
+- Nodemon (v3.1.10)
 
 ### Installation
 
