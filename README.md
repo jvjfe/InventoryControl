@@ -12,6 +12,14 @@ InventoryControl is a project developed to manage inventory using **Express**, *
 - PostgreSQL  
 - Prisma  
 
+### Other NPM Packages
+
+- Swegger
+- Express
+- Chalk
+- Morgan
+- Nodemon
+
 ### Installation
 
 1. Clone the repository:
