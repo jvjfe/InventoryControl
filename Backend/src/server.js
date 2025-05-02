@@ -4,7 +4,11 @@ import chalk from "chalk";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
-import userRoutes from "./routes/userRoutes.js";
+import productsRoutes from "./routes/productsRoutes.js";
+
+BigInt.prototype.toJSON = function () {
+    return Number(this);
+};
 
 // Configuração do Swagger
 const swaggerOptions = {
@@ -16,7 +20,7 @@ const swaggerOptions = {
             description: "Documentação do Teste do Users.",
         },
     },
-    apis: ["./src/routes/userRoutes.js"],
+    apis: ["./src/routes/productsRoutes.js"],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
@@ -41,7 +45,7 @@ app.use(morgan((tokens, req, res) => {
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Use o arquivo separado de rotas
-app.use('/users', userRoutes(prisma));
+app.use('/products', productsRoutes);
 
 // Inicialização do servidor
 app.listen(PORT, () => {
