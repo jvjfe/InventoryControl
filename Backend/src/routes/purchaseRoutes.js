@@ -49,7 +49,7 @@ const prisma = new PrismaClient();
  *                       example: 15.50
  *                     product_id:
  *                       type: string
- *                       example: "123e4567-e89b-12d3-a456-426614174000"
+ *                       example: "123e4567-e89b-10d1-a112-131415161718"
  *     responses:
  *       201:
  *         description: Compra criada com sucesso
@@ -63,7 +63,7 @@ router.post('/', createPurchase(prisma));
  * @swagger
  * /purchases:
  *   get:
- *     summary: Lista todas as compras
+ *     summary: Lista todas as compras sem necessidade de ID
  *     tags: [Purchases]
  *     responses:
  *       200:
@@ -75,7 +75,7 @@ router.get('/', (req, res) => getPurchase(req, res, prisma));
  * @swagger
  * /purchases/{id}:
  *   get:
- *     summary: Obtém uma compra pelo ID
+ *     summary: Obtém uma compra pelo ID escolhido
  *     tags: [Purchases]
  *     parameters:
  *       - in: path
@@ -87,7 +87,7 @@ router.get('/', (req, res) => getPurchase(req, res, prisma));
  *       200:
  *         description: Compra encontrada
  *       404:
- *         description: Compra não encontrada
+ *         description: Compra não encontrada ou inexistente
  */
 router.get('/:id', (req, res) => getPurchaseById(req, res, prisma));
 
@@ -138,14 +138,14 @@ router.get('/:id', (req, res) => getPurchaseById(req, res, prisma));
  *                       example: 15.75
  *                     product_id:
  *                       type: string
- *                       example: "123e4567-e89b-12d3-a456-426614174000"
+ *                       example: "123e4567-e89b-10d1-a112-131415161718"
  *     responses:
  *       200:
  *         description: Compra atualizada com sucesso
  *       404:
- *         description: Compra não encontrada
+ *         description: Compra não encontrada ou Inexistente
  *       500:
- *         description: Erro ao atualizar a compra
+ *         description: Erro interno ao atualizar a compra
  */
 
 router.put('/:id', putPurchase(prisma));

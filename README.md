@@ -62,7 +62,7 @@ npx prisma generate
 npm start
 ```
 
-> You can also use npx nodemon ./src/server.js , npm Start is set on package.json
+> You can also use npx nodemon ./src/server.js , npm start is set on package.json
 
 7. Start the development server:
 

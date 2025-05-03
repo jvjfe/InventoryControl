@@ -49,12 +49,12 @@ const prisma = new PrismaClient();
  *                       example: 49.90
  *                     product_id:
  *                       type: string
- *                       example: "123e4567-e89b-12d3-a456-426614174000"
+ *                       example: "123e4567-e89b-10d1-a112-131415161718"
  *     responses:
  *       201:
  *         description: Venda criada com sucesso
  *       500:
- *         description: Erro ao criar a venda
+ *         description: Erro interno ao criar a venda
  */
 
 router.post('/', createSale(prisma));
@@ -139,7 +139,7 @@ router.get('/:id', (req, res) => getSaleById(req, res, prisma));
  *                       example: 49.90
  *                     product_id:
  *                       type: string
- *                       example: "123e4567-e89b-12d3-a456-426614174000"
+ *                       example: "123e4567-e89b-10d1-a112-131415161718"
  *     responses:
  *       200:
  *         description: Venda atualizada com sucesso

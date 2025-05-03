@@ -23,9 +23,9 @@ const swaggerOptions = {
     definition: {
         openapi: "3.0.0",
         info: {
-            title: "API Controle de Estoque",
+            title: "Controle de Estoque",
             version: "1.0.0",
-            description: "Controle de estoque documentado com todos os métodos CRUD.",
+            description: "API documentada com todos os métodos CRUD.",
         },
     },
     apis: ["./src/routes/*.js"],

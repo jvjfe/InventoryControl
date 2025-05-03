@@ -47,7 +47,7 @@ router.post('/', createProducts(prisma));
  * @swagger
  * /products:
  *   get:
- *     summary: Lista todos os produtos
+ *     summary: Lista todos os produtos sem necessidade do ID
  *     tags: [Products]
  *     responses:
  *       200:
@@ -59,7 +59,7 @@ router.get('/', (req, res) => getProducts(req, res, prisma));
  * @swagger
  * /products/{id}:
  *   get:
- *     summary: Obtém um produto pelo ID
+ *     summary: Obtém um produto pelo ID escolhido dele
  *     tags: [Products]
  *     parameters:
  *       - in: path
