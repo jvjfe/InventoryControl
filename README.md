@@ -59,8 +59,10 @@ npx prisma generate
 6. Run the migrations (if applicable):
 
 ```bash
-npx prisma migrate dev
+npm start
 ```
+
+> You can also use npx nodemon ./src/server.js , npm Start is set on package.json
 
 7. Start the development server:
 
