@@ -4,7 +4,7 @@ export default function deleteProducts(prisma) {
 
         try {
             await prisma.product.delete({
-                where: { id: Number(id) },
+                where: { id: id },
             });
 
             res.status(204).json({ message: "Produto deletado com sucesso." });

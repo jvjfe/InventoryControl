@@ -1,3 +1,5 @@
+PLANEJAMENTO APENAS, NÃO É A VERSÃO FINAL
+
 products {
   "id": 01,
   "name": "Teste",

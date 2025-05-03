@@ -23,15 +23,40 @@ const prisma = new PrismaClient();
  *             required:
  *               - customer_name
  *               - payment_method
+ *               - items
  *             properties:
  *               customer_name:
  *                 type: string
+ *                 example: String
  *               payment_method:
  *                 type: string
+ *                 example: String
+ *               items:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - qty_total
+ *                     - unit_price
+ *                     - product_id
+ *                   properties:
+ *                     qty_total:
+ *                       type: integer
+ *                       example: 2
+ *                     unit_price:
+ *                       type: number
+ *                       format: float
+ *                       example: 49.90
+ *                     product_id:
+ *                       type: string
+ *                       example: "123e4567-e89b-12d3-a456-426614174000"
  *     responses:
  *       201:
  *         description: Venda criada com sucesso
+ *       500:
+ *         description: Erro ao criar a venda
  */
+
 router.post('/', createSale(prisma));
 
 /**
@@ -57,7 +82,7 @@ router.get('/', (req, res) => getSale(req, res, prisma));
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Venda encontrada
@@ -77,24 +102,53 @@ router.get('/:id', (req, res) => getSaleById(req, res, prisma));
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
+ *         description: ID da venda a ser atualizada
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - customer_name
+ *               - payment_method
+ *               - items
  *             properties:
  *               customer_name:
  *                 type: string
+ *                 example: João da Silva
  *               payment_method:
  *                 type: string
+ *                 example: Cartão de Crédito
+ *               items:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - qty_total
+ *                     - unit_price
+ *                     - product_id
+ *                   properties:
+ *                     qty_total:
+ *                       type: integer
+ *                       example: 2
+ *                     unit_price:
+ *                       type: number
+ *                       format: float
+ *                       example: 49.90
+ *                     product_id:
+ *                       type: string
+ *                       example: "123e4567-e89b-12d3-a456-426614174000"
  *     responses:
  *       200:
  *         description: Venda atualizada com sucesso
  *       404:
  *         description: Venda não encontrada
+ *       500:
+ *         description: Erro ao atualizar a venda
  */
+
 router.put('/:id', putSale(prisma));
 
 /**
@@ -108,7 +162,7 @@ router.put('/:id', putSale(prisma));
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       204:
  *         description: Venda deletada com sucesso

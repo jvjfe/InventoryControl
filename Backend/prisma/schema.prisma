@@ -8,12 +8,12 @@ datasource db {
 }
 
 model Product {
-  id          BigInt   @id @default(autoincrement())
+  id          String   @id
   name        String
   description String
   stock       Int
   status      String
-  price       Decimal  @default(0.00) // Campo de preço novo
+  price       Decimal  @default(0.00)
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
@@ -22,49 +22,51 @@ model Product {
 }
 
 model Sale {
-  id             BigInt   @id @default(autoincrement())
+  id             String   @id
   customer_name  String
-  payment_method String // Campo de forma de pagamento novo
+  payment_method String
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 
-  sales_items SalesItem[]
+  items SalesItem[]
 }
 
 model SalesItem {
-  id         BigInt   @id @default(autoincrement())
-  sales_id   BigInt
-  product_id BigInt
+  id         String   @id
   qty_total  Int
-  unit_price Decimal  @default(0.00) // Campo de preço unitário novo
+  unit_price Decimal  @default(0.00)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  sale    Sale    @relation(fields: [sales_id], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  sale    Sale   @relation(fields: [sale_id], references: [id], onDelete: Cascade)
+  sale_id String
+
+  product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  product_id String
 }
 
 model PurchaseOrder {
-  id             BigInt   @id @default(autoincrement())
+  id             String   @id
   supplier_name  String
-  payment_method String // campo de pagamento novo
+  payment_method String
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 
-  purchase_items PurchaseItem[]
+  items PurchaseItem[]
 }
 
 model PurchaseItem {
-  id          BigInt   @id @default(autoincrement())
-  purchase_id BigInt
-  product_id  BigInt
-  qty_total   Int
-  unit_price  Decimal  @default(0.00) // preço unitário
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id         String   @id
+  qty_total  Int
+  unit_price Decimal  @default(0.00)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  purchase PurchaseOrder @relation(fields: [purchase_id], references: [id], onDelete: Cascade)
-  product  Product       @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  purchase    PurchaseOrder @relation(fields: [purchase_id], references: [id], onDelete: Cascade)
+  purchase_id String
+
+  product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  product_id String
 }
 
 model User {

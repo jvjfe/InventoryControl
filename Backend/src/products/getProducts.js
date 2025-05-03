@@ -12,7 +12,7 @@ export async function getProductsById(req, res, prisma) {
     const { id } = req.params;
     try {
         const product = await prisma.product.findUnique({
-            where: { id: Number(id) },
+            where: { id: id },
         });
 
         if (product) {

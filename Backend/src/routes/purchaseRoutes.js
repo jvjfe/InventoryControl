@@ -23,15 +23,40 @@ const prisma = new PrismaClient();
  *             required:
  *               - supplier_name
  *               - payment_method
+ *               - items
  *             properties:
  *               supplier_name:
  *                 type: string
+ *                 example: "Fornecedor Exemplo"
  *               payment_method:
  *                 type: string
+ *                 example: "Boleto Bancário"
+ *               items:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - qty_total
+ *                     - unit_price
+ *                     - product_id
+ *                   properties:
+ *                     qty_total:
+ *                       type: integer
+ *                       example: 10
+ *                     unit_price:
+ *                       type: number
+ *                       format: float
+ *                       example: 15.50
+ *                     product_id:
+ *                       type: string
+ *                       example: "123e4567-e89b-12d3-a456-426614174000"
  *     responses:
  *       201:
  *         description: Compra criada com sucesso
+ *       500:
+ *         description: Erro ao criar a compra
  */
+
 router.post('/', createPurchase(prisma));
 
 /**
@@ -57,7 +82,7 @@ router.get('/', (req, res) => getPurchase(req, res, prisma));
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Compra encontrada
@@ -77,24 +102,52 @@ router.get('/:id', (req, res) => getPurchaseById(req, res, prisma));
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - supplier_name
+ *               - payment_method
+ *               - items
  *             properties:
  *               supplier_name:
  *                 type: string
+ *                 example: Fornecedor XYZ
  *               payment_method:
  *                 type: string
+ *                 example: Boleto
+ *               items:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - qty_total
+ *                     - unit_price
+ *                     - product_id
+ *                   properties:
+ *                     qty_total:
+ *                       type: integer
+ *                       example: 10
+ *                     unit_price:
+ *                       type: number
+ *                       format: float
+ *                       example: 15.75
+ *                     product_id:
+ *                       type: string
+ *                       example: "123e4567-e89b-12d3-a456-426614174000"
  *     responses:
  *       200:
  *         description: Compra atualizada com sucesso
  *       404:
  *         description: Compra não encontrada
+ *       500:
+ *         description: Erro ao atualizar a compra
  */
+
 router.put('/:id', putPurchase(prisma));
 
 /**
@@ -108,7 +161,7 @@ router.put('/:id', putPurchase(prisma));
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       204:
  *         description: Compra deletada com sucesso

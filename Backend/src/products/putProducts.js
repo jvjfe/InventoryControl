@@ -6,22 +6,18 @@ export default function putProducts(prisma) {
             description,
             status,
             stock,
-            price,
-            created_at,
-            update_at,
+            price
         } = req.body;
 
         try {
             const product = await prisma.product.update({
-                where: { id: Number(id) },
+                where: { id: id },
                 data: {
                     name,
                     description,
                     status,
                     stock,
-                    price,
-                    created_at: created_at ? new Date(created_at) : undefined,
-                    updated_at: update_at ? new Date(update_at) : new Date(),
+                    price
                 },
             });
 

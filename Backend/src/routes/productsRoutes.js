@@ -66,7 +66,7 @@ router.get('/', (req, res) => getProducts(req, res, prisma));
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Produto encontrado
@@ -86,7 +86,7 @@ router.get('/:id', (req, res) => getProductsById(req, res, prisma));
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -124,7 +124,7 @@ router.put('/:id', putProducts(prisma));
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       204:
  *         description: Produto deletado com sucesso

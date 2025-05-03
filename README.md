@@ -19,6 +19,7 @@ InventoryControl is a project developed to manage inventory using **Express**, *
 - Chalk (v5.4.1)
 - Morgan (v1.10.0)
 - Nodemon (v3.1.10)
+- Uuid (v11.1.0)
 
 ### Installation
 
