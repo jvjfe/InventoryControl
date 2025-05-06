@@ -1,0 +1,43 @@
+.see-more-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.see-more-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 1.2rem;
+    padding: 5px;
+    transition: transform 0.2s ease;
+}
+
+.see-more-btn:hover {
+    color: #0056b3;
+    transform: scale(1.1);
+}
+
+.see-more-tooltip {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 4px 8px;
+    position: absolute;
+    z-index: 1;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.see-more-wrapper:hover .see-more-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
