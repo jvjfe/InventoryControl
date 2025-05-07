@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import FadeInWrapper from "../../components/Effects/FadeInWrapper";
 import { FaInfoCircle } from "react-icons/fa";
 import "./Products.css";
+import EditButton from "../../components/Buttons/EditButton/EditButton";
 import EditProductModal from "./Modals/EditProductModal";
 import SeeMore from "../../components/Buttons/SeeMore/SeeMore";
 
@@ -62,8 +64,9 @@ function Produtos() {
                     <span>Preço</span>
                     <span>Ações</span>
                 </div>
-                {produtos.map((produto) => (
-                    <React.Fragment key={produto.id}>
+                {produtos.map((produto, i) => (
+                <React.Fragment key={produto.id}>
+                    <FadeInWrapper key={produto.id} delay={i * 0.05}>
                         <div className="grid-row">
                             <span data-label="Nome">{produto.name}</span>
                             <span data-label="Descrição">{produto.description}</span>
@@ -71,12 +74,14 @@ function Produtos() {
                             <span data-label="Estoque">{produto.stock}</span>
                             <span data-label="Preço">R$ {Number(produto.price).toFixed(2)}</span>
                             <span data-label="Ações" className="acoes-coluna">
-                                <button onClick={() => abrirModalEditar(produto)}>Editar</button>
-                                <SeeMore icon={FaInfoCircle} onClick={() => abrirModalVisualizar(produto)} tooltip="Ver Itens" />
+                                <EditButton onClick={() => abrirModalEditar(produto)} tooltip="Editar Produto" />    
+                                <SeeMore icon={FaInfoCircle} onClick={() => abrirModalVisualizar(produto)} tooltip="Ver Produto" />
                             </span>
                         </div>
-                    </React.Fragment>
-                ))}
+                    </FadeInWrapper>
+                </React.Fragment>
+            ))}
+
             </div>
 
             {modalEditar && produtoSelecionado && (
@@ -92,7 +97,3 @@ function Produtos() {
 }
 
 export default Produtos;
-
-//<p><strong>ID:</strong> {produto.id}</p>
-//<p><strong>Criado em:</strong> {new Date(produto.created_at).toLocaleString()}</p>
-//<p><strong>Atualizado em:</strong> {new Date(produto.updated_at).toLocaleString()}</

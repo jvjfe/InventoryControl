@@ -1,4 +1,4 @@
-.see-more-wrapper {
+.edit-button-wrapper {
     position: relative;
     display: flex;
     align-items: center;
@@ -6,25 +6,7 @@
     height: 100%;
 }
 
-.see-more-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #007bff;
-    font-size: 1.2rem;
-    padding: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.see-more-btn:hover {
-    color: #0056b3;
-    transform: scale(1.15);
-}
-
-.see-more-tooltip {
+.edit-tooltip {
     visibility: hidden;
     background-color: #333;
     color: #fff;
@@ -36,16 +18,34 @@
     bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
-    white-space: nowrap;
-    font-size: 0.75rem;
     opacity: 0;
     transition: opacity 0.3s, transform 0.3s;
+    white-space: nowrap;
+    font-size: 0.75rem;
     pointer-events: none;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.see-more-wrapper:hover .see-more-tooltip {
+.edit-button-wrapper:hover .edit-tooltip {
     visibility: visible;
     opacity: 1;
     transform: translateX(-50%) translateY(-4px);
+}
+
+.edit-button {
+    background-color: transparent;
+    border: none;
+    color: green;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.edit-button:hover {
+    transform: scale(1.15);
+    color: #006400; /* verde mais escuro */
 }

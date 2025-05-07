@@ -17,6 +17,7 @@
     border-radius: 8px;
     width: 400px;
     position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 form {
@@ -79,4 +80,13 @@ input, textarea {
     padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.extra-info {
+    margin-top: 1rem;
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }

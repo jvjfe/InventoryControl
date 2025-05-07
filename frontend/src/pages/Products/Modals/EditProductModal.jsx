@@ -1,6 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion"; // Importando o framer-motion
 import "./EditProductModal.css";
 import axios from "axios";
+
+const modalVariants = {
+    initial: {
+        opacity: 0,
+    },
+    in: {
+        opacity: 1,
+    },
+    out: {
+        opacity: 0,
+    },
+};
+
+const modalTransition = {
+    type: "tween",
+    duration: 0.5, // Definindo a duração da transição para o fade-in
+};
 
 function EditProductModal({ product, onClose, onUpdate, readOnly }) {
     const [formData, setFormData] = useState({
@@ -10,6 +28,15 @@ function EditProductModal({ product, onClose, onUpdate, readOnly }) {
         price: product.price,
         status: product.status === "Ativo" ? "Ativo" : "Inativo",
     });
+    const [isClosing, setIsClosing] = useState(false);
+
+    useEffect(() => {
+        if (isClosing) {
+            setTimeout(() => {
+                onClose(); // Fechar o modal após o fade-out
+            }, 500); // Tempo de duração do fade-out
+        }
+    }, [isClosing, onClose]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,15 +56,23 @@ function EditProductModal({ product, onClose, onUpdate, readOnly }) {
         e.preventDefault();
         try {
             await axios.put(`http://localhost:3333/products/${product.id}`, formData);
-            onUpdate(); // Atualiza a lista principal
-            onClose();  // Fecha o modal
+            onUpdate(); 
+            setIsClosing(true); // Acionar o fade-out antes de fechar
         } catch (error) {
             console.error("Erro ao atualizar produto:", error);
         }
     };
 
     return (
-        <div className="modal-overlay" onClick={onClose}>
+        <motion.div
+            className="modal-overlay"
+            initial="initial"
+            animate={isClosing ? "out" : "in"} // Mudar para "out" quando o modal for fechado
+            exit="out"
+            variants={modalVariants}
+            transition={modalTransition}
+            onClick={() => setIsClosing(true)} // Fechar o modal ao clicar no fundo
+        >
             <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <h3>{readOnly ? "Visualizar Produto" : "Editar Produto"}</h3>
                 <form onSubmit={handleSubmit}>
@@ -100,17 +135,35 @@ function EditProductModal({ product, onClose, onUpdate, readOnly }) {
                         </button>
                     </div>
 
+                    {/* Campos extras somente no modo readOnly */}
+                    {readOnly && (
+                        <div className="extra-info">
+                            <label>
+                                ID:
+                                <input type="text" value={product.id} disabled />
+                            </label>
+                            <label>
+                                Criado em:
+                                <input type="text" value={new Date(product.created_at).toLocaleString()} disabled />
+                            </label>
+                            <label>
+                                Atualizado em:
+                                <input type="text" value={new Date(product.updated_at).toLocaleString()} disabled />
+                            </label>
+                        </div>
+                    )}
+
                     <div className="modal-actions">
                         {!readOnly && (
                             <button type="submit" className="salvar-btn">Salvar</button>
                         )}
-                        <button type="button" onClick={onClose} className="cancelar-btn">
+                        <button type="button" onClick={() => setIsClosing(true)} className="cancelar-btn">
                             {readOnly ? "Fechar" : "Cancelar"}
                         </button>
                     </div>
                 </form>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
