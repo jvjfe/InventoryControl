@@ -1,6 +1,7 @@
 import React from "react";
 import "./SeeMore.css";
 
+
 function SeeMore({ icon: Icon, onClick, tooltip }) {
     return (
         <div className="see-more-wrapper">

@@ -1,22 +1,54 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { FaInfoCircle } from "react-icons/fa";
 import "./Products.css";
+import EditProductModal from "./Modals/EditProductModal";
+import SeeMore from "../../components/Buttons/SeeMore/SeeMore";
 
 function Produtos() {
     const [produtos, setProdutos] = useState([]);
+    const [modalEditar, setModalEditar] = useState(false);
+    const [produtoSelecionado, setProdutoSelecionado] = useState(null);
+    const [readOnly, setReadOnly] = useState(false); // novo estado
+
+    const fetchProdutos = async () => {
+        try {
+            const response = await axios.get("http://localhost:3333/Products/");
+            setProdutos(response.data);
+        } catch (error) {
+            console.error("Erro ao buscar produtos:", error);
+        }
+    };
 
     useEffect(() => {
-        const fetchProdutos = async () => {
-            try {
-                const response = await axios.get("http://localhost:3333/Products/");
-                setProdutos(response.data);
-            } catch (error) {
-                console.error("Erro ao buscar produtos:", error);
-            }
-        };
-
         fetchProdutos();
     }, []);
+
+    const abrirModalEditar = (produto) => {
+        const produtoComStockInt = {
+            ...produto,
+            stock: parseInt(produto.stock, 10)
+        };
+        setReadOnly(false); // modo edição
+        setProdutoSelecionado(produtoComStockInt);
+        setModalEditar(true);
+    };
+
+    const abrirModalVisualizar = (produto) => {
+        const produtoComStockInt = {
+            ...produto,
+            stock: parseInt(produto.stock, 10)
+        };
+        setReadOnly(true); // modo visualização
+        setProdutoSelecionado(produtoComStockInt);
+        setModalEditar(true);
+    };
+
+    const fecharModalEditar = () => {
+        setModalEditar(false);
+        setProdutoSelecionado(null);
+        setReadOnly(false);
+    };
 
     return (
         <div className="produtos-container">
@@ -28,19 +60,39 @@ function Produtos() {
                     <span>Status</span>
                     <span>Estoque</span>
                     <span>Preço</span>
+                    <span>Ações</span>
                 </div>
                 {produtos.map((produto) => (
-                    <div key={produto.id} className="grid-row">
-                        <span data-label="Nome">{produto.name}</span>
-                        <span data-label="Descrição">{produto.description}</span>
-                        <span data-label="Status">{produto.status}</span>
-                        <span data-label="Estoque">{produto.stock}</span>
-                        <span data-label="Preço">R$ {Number(produto.price).toFixed(2)}</span>
-                    </div>
+                    <React.Fragment key={produto.id}>
+                        <div className="grid-row">
+                            <span data-label="Nome">{produto.name}</span>
+                            <span data-label="Descrição">{produto.description}</span>
+                            <span data-label="Status">{produto.status}</span>
+                            <span data-label="Estoque">{produto.stock}</span>
+                            <span data-label="Preço">R$ {Number(produto.price).toFixed(2)}</span>
+                            <span data-label="Ações" className="acoes-coluna">
+                                <button onClick={() => abrirModalEditar(produto)}>Editar</button>
+                                <SeeMore icon={FaInfoCircle} onClick={() => abrirModalVisualizar(produto)} tooltip="Ver Itens" />
+                            </span>
+                        </div>
+                    </React.Fragment>
                 ))}
             </div>
+
+            {modalEditar && produtoSelecionado && (
+                <EditProductModal
+                    product={produtoSelecionado}
+                    onClose={fecharModalEditar}
+                    onUpdate={fetchProdutos}
+                    readOnly={readOnly}
+                />
+            )}
         </div>
     );
 }
 
 export default Produtos;
+
+//<p><strong>ID:</strong> {produto.id}</p>
+//<p><strong>Criado em:</strong> {new Date(produto.created_at).toLocaleString()}</p>
+//<p><strong>Atualizado em:</strong> {new Date(produto.updated_at).toLocaleString()}</

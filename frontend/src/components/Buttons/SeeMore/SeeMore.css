@@ -8,14 +8,14 @@
     border: none;
     cursor: pointer;
     color: #007bff;
-    font-size: 1.2rem;
-    padding: 5px;
+    font-size: 1.2rem;  /* Aumentei o tamanho da fonte */
+    padding: 10px;  /* Aumentei o padding */
     transition: transform 0.2s ease;
 }
 
 .see-more-btn:hover {
     color: #0056b3;
-    transform: scale(1.1);
+    transform: scale(1.1); /* Aumentei o efeito de zoom no hover */
 }
 
 .see-more-tooltip {
@@ -24,14 +24,14 @@
     color: #fff;
     text-align: center;
     border-radius: 4px;
-    padding: 4px 8px;
+    padding: 8px 10px;  /* Aumentei o padding */
     position: absolute;
     z-index: 1;
-    top: -30px;
+    top: -40px;  /* Aumentei a distância da tooltip */
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
-    font-size: 0.75rem;
+    font-size: 0.8rem;  /* Aumentei o tamanho da fonte da tooltip */
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;

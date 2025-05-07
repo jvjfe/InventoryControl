@@ -11,7 +11,7 @@
 
 .grid-header, .grid-row {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     padding: 10px;
     background-color: #f0f0f0;
     border-radius: 5px;
@@ -33,4 +33,20 @@
 
 .grid-row span {
     overflow-wrap: break-word;
+}
+
+.acoes-coluna {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.grid-details {
+    background-color: #f3f3f3;
+    padding: 10px;
+    border-radius: 8px;
+    margin-left: 16px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: #333;
 }
