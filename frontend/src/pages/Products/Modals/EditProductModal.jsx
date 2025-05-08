@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion"; // Importando o framer-motion
+import { motion } from "framer-motion";
 import "./EditProductModal.css";
 import axios from "axios";
 

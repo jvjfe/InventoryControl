@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Purchases.css";
+import EditPurchaseModal from "./Modals/EditPurchaseModal";
+import EditButton from "../../components/Buttons/EditButton/EditButton";
 import SeeMore from "../../components/Buttons/SeeMore/SeeMore";
-import { FaInfoCircle } from "react-icons/fa";
+
+import { FaInfoCircle, FaEdit } from "react-icons/fa";
 
 function Compras() {
     const [compras, setCompras] = useState([]);
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(null);
     const [itensCompra, setItensCompra] = useState([]);
+    const [editCompra, setEditCompra] = useState();
+    const [abrirEditar, setAbrirEditar] = useState(false);
+
+    const fetchCompras = async () => {
+        try {
+            const response = await axios.get("http://localhost:3333/purchases");
+            setCompras(response.data);
+        } catch (error) {
+            console.error("Erro ao buscar compras:", error);
+        }
+    };
 
     useEffect(() => {
-        const fetchCompras = async () => {
-            try {
-                const response = await axios.get("http://localhost:3333/purchases");
-                setCompras(response.data);
-            } catch (error) {
-                console.error("Erro ao buscar compras:", error);
-            }
-        };
-
         fetchCompras();
     }, []);
 
@@ -31,6 +36,11 @@ function Compras() {
         setModalOpen(false);
         setItensCompra([]);
     };
+    const abrirEditarCompra = (compra) => {
+        setEditCompra(compra);
+        setAbrirEditar(true);
+    };
+    
 
     return (
         <div className="compras-container">
@@ -48,11 +58,21 @@ function Compras() {
                         <span data-label="Pagamento">{compra.payment_method}</span>
                         <span data-label="Data">{new Date(compra.created_at).toLocaleDateString()}</span>
                         <span data-label="Ações">
-                        <SeeMore icon={FaInfoCircle} onClick={() => abrirModal(compra.items)} tooltip="Ver Itens" />
-                        </span>
+                    <div className="action-buttons">
+                        <EditButton icon={FaEdit} onClick={() => abrirEditarCompra(compra)} tooltip="Editar Compra" />
+                        <SeeMore icon={FaInfoCircle} onClick={() => abrirModal(compra.items)} tooltip="Ver Compra" />
+                    </div>
+                    </span>
                     </div>
                 ))}
             </div>
+            {abrirEditar && (
+                    <EditPurchaseModal
+                        compra={editCompra}
+                        onClose={()=> setAbrirEditar(false)}
+                        onUpdated={fetchCompras()}
+                    />
+                )}
 
             {modalOpen && (
                 <div className="modal-overlay" onClick={fecharModal}>
