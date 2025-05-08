@@ -52,6 +52,22 @@ function Produtos() {
         setReadOnly(false);
     };
 
+    // Função para formatar o número no padrão brasileiro
+    const formatarPreco = (valor) => {
+        const precoNumerico = parseFloat(valor); // Converte para número
+        if (isNaN(precoNumerico)) {
+            return "R$ 0,00"; // Se não for um número válido, retorna 0,00
+        }
+
+        // Formatação do valor com separador de milhar e duas casas decimais
+        const precoFormatado = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+        }).format(precoNumerico);
+
+        return precoFormatado;
+    };
+
     return (
         <div className="produtos-container">
             <h2>Área de Produtos</h2>
@@ -65,23 +81,22 @@ function Produtos() {
                     <span>Ações</span>
                 </div>
                 {produtos.map((produto, i) => (
-                <React.Fragment key={produto.id}>
-                    <FadeInWrapper key={produto.id} delay={i * 0.05}>
-                        <div className="grid-row">
-                            <span data-label="Nome">{produto.name}</span>
-                            <span data-label="Descrição">{produto.description}</span>
-                            <span data-label="Status">{produto.status}</span>
-                            <span data-label="Estoque">{produto.stock}</span>
-                            <span data-label="Preço">R$ {Number(produto.price).toFixed(2)}</span>
-                            <span data-label="Ações" className="acoes-coluna">
-                                <EditButton onClick={() => abrirModalEditar(produto)} tooltip="Editar Produto" />    
-                                <SeeMore icon={FaInfoCircle} onClick={() => abrirModalVisualizar(produto)} tooltip="Ver Produto" />
-                            </span>
-                        </div>
-                    </FadeInWrapper>
-                </React.Fragment>
-            ))}
-
+                    <React.Fragment key={produto.id}>
+                        <FadeInWrapper key={produto.id} delay={i * 0.05}>
+                            <div className="grid-row">
+                                <span data-label="Nome">{produto.name}</span>
+                                <span data-label="Descrição">{produto.description}</span>
+                                <span data-label="Status">{produto.status}</span>
+                                <span data-label="Estoque">{produto.stock}</span>
+                                <span data-label="Preço">{formatarPreco(produto.price)}</span>
+                                <span data-label="Ações" className="acoes-coluna">
+                                    <EditButton onClick={() => abrirModalEditar(produto)} tooltip="Editar Produto" />    
+                                    <SeeMore icon={FaInfoCircle} onClick={() => abrirModalVisualizar(produto)} tooltip="Ver Produto" />
+                                </span>
+                            </div>
+                        </FadeInWrapper>
+                    </React.Fragment>
+                ))}
             </div>
 
             {modalEditar && produtoSelecionado && (
