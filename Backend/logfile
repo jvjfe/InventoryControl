@@ -1,0 +1,22 @@
+2025-05-08 15:12:31.545 -03 [8901] LOG:  starting PostgreSQL 14.17 (Homebrew) on x86_64-apple-darwin20.6.0, compiled by Apple clang version 12.0.5 (clang-1205.0.22.11), 64-bit
+2025-05-08 15:12:31.579 -03 [8901] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-05-08 15:12:31.579 -03 [8901] LOG:  listening on IPv6 address "::1", port 5432
+2025-05-08 15:12:31.581 -03 [8901] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-05-08 15:12:31.586 -03 [8902] LOG:  database system was shut down at 2025-05-08 15:12:11 -03
+2025-05-08 15:12:31.593 -03 [8901] LOG:  database system is ready to accept connections
+2025-05-08 15:13:03.460 -03 [9051] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:13:03.491 -03 [9052] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:13:05.065 -03 [9056] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:13:05.070 -03 [9057] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:13:25.290 -03 [9067] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:13:25.293 -03 [9068] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:13:55.304 -03 [9296] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:13:55.581 -03 [9297] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:16:09.785 -03 [10428] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:16:09.828 -03 [10429] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:16:09.855 -03 [10431] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:16:09.858 -03 [10432] FATAL:  database "sars_devbd" does not exist
+2025-05-08 15:16:12.729 -03 [10437] ERROR:  relation "_prisma_migrations" does not exist at character 126
+2025-05-08 15:16:12.729 -03 [10437] STATEMENT:  SELECT "id", "checksum", "finished_at", "migration_name", "logs", "rolled_back_at", "started_at", "applied_steps_count" FROM "_prisma_migrations" ORDER BY "started_at" ASC
+2025-05-08 15:16:14.212 -03 [10443] FATAL:  terminating connection due to administrator command
+2025-05-08 15:16:14.615 -03 [10444] FATAL:  terminating connection due to administrator command

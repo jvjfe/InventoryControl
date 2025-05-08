@@ -1,13 +1,20 @@
 export default function putProducts(prisma) {
     return async function (req, res) {
         const { id } = req.params;
-        const {
-            name,
-            description,
-            status,
-            stock,
-            price
-        } = req.body;
+        const { name, description, status, stock, price } = req.body;
+
+        // Converte stock para um número inteiro e price para um número de ponto flutuante
+        const parsedStock = parseInt(stock, 10);
+        const parsedPrice = parseFloat(price);
+
+        // Verifica se as conversões são válidas
+        if (isNaN(parsedStock)) {
+            return res.status(400).json({ error: "O campo 'stock' precisa ser um número inteiro." });
+        }
+
+        if (isNaN(parsedPrice)) {
+            return res.status(400).json({ error: "O campo 'price' precisa ser um número válido." });
+        }
 
         try {
             const product = await prisma.product.update({
@@ -16,8 +23,8 @@ export default function putProducts(prisma) {
                     name,
                     description,
                     status,
-                    stock,
-                    price
+                    stock: parsedStock,
+                    price: parsedPrice
                 },
             });
 
