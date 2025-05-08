@@ -16,6 +16,7 @@ export default function updateSale(prisma) {
                     return res.status(404).json({ error: "Venda não encontrada ou inexistente." });
                 }
 
+                // Repor estoque dos itens antigos
                 for (const oldItem of existingSale.items) {
                     const product = await tx.product.findUnique({
                         where: { id: oldItem.product_id },
@@ -31,17 +32,18 @@ export default function updateSale(prisma) {
                     }
                 }
 
-                //  ISSO AQUI DELETA OS ITENS ANTIGOS
+                // Deleta os itens antigos
                 await tx.salesItem.deleteMany({
                     where: { sale_id: id },
                 });
 
-                // A PARTIR DAQ ATUALIZA
+                // Atualiza a venda
                 await tx.sale.update({
                     where: { id },
                     data: { customer_name, payment_method },
                 });
 
+                // Inserção dos novos itens com verificação de estoque
                 for (const item of items) {
                     const saleItemId = uuid();
 
@@ -51,6 +53,11 @@ export default function updateSale(prisma) {
 
                     if (!product) {
                         throw new Error(`Produto ${item.product_id} não encontrado.`);
+                    }
+
+                    // Verificação de estoque antes de subtrair
+                    if (product.stock < item.qty_total) {
+                        throw new Error(`Estoque insuficiente para o produto "${product.name}". Disponível: ${product.stock}, Requerido: ${item.qty_total}`);
                     }
 
                     await tx.salesItem.create({
@@ -80,7 +87,7 @@ export default function updateSale(prisma) {
             res.status(200).json(updatedSale);
         } catch (error) {
             console.error("Erro ao atualizar a venda:", error);
-            res.status(500).json({ error: "Erro ao atualizar a venda (500)." });
+            res.status(500).json({ error: error.message || "Erro ao atualizar a venda (500)." });
         }
     };
 }
