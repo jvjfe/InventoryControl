@@ -5,6 +5,8 @@ import EditPurchaseModal from "./Modals/EditPurchaseModal";
 import EditButton from "../../components/Buttons/EditButton/EditButton";
 import SeeMore from "../../components/Buttons/SeeMore/SeeMore";
 import DeleteButton from "../../components/Buttons/DeleteButton/DeleteButton";
+import AddPurchaseModal from "./Modals/AddPurchaseModal";
+import AddButton from "../../components/Buttons/AddButton/AddButton";
 import { FaInfoCircle, FaEdit } from "react-icons/fa";
 
 function Compras() {
@@ -14,6 +16,7 @@ function Compras() {
     const [editCompra, setEditCompra] = useState(null);
     const [abrirEditar, setAbrirEditar] = useState(false);
     const [compraSelecionada, setCompraSelecionada] = useState(null);
+    const [abrirAdicionar, setAbrirAdicionar] = useState(false);
 
     const fetchCompras = async () => {
         try {
@@ -61,6 +64,10 @@ function Compras() {
     return (
         <div className="compras-container">
             <h2>Área de Compras</h2>
+            <div className="add-button-container">
+                <AddButton onClick={() => setAbrirAdicionar(true)} tooltip="Adicionar Compra" />
+            </div>
+
             <div className="compras-grid">
                 <div className="grid-header">
                     <span>Fornecedor</span>
@@ -89,6 +96,12 @@ function Compras() {
                     </div>
                 ))}
             </div>
+            {abrirAdicionar && (
+                <AddPurchaseModal
+                    onClose={() => setAbrirAdicionar(false)}
+                    onCreated={fetchCompras}
+                />
+            )}
 
             {abrirEditar && (
                 <EditPurchaseModal

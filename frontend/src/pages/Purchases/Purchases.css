@@ -9,17 +9,22 @@
     align-items: center;
     justify-content: center;
     z-index: 10;
-    padding: 20px; /* Adicionado para garantir que caiba em telas pequenas */
+    padding: 20px;
+    /* Adicionado para garantir que caiba em telas pequenas */
 }
 
 .modal-content {
     background: white;
     padding: 30px;
     border-radius: 8px;
-    width: 95%;              /* Mais espaço horizontal */
-    max-width: 1400px;       /* Aumentado limite máximo */
-    min-width: 800px;        /* Garante largura mínima decente */
-    max-height: 90vh;        /* Corrigido o excesso de altura (era 120vh, podia vazar a tela) */
+    width: 95%;
+    /* Mais espaço horizontal */
+    max-width: 1400px;
+    /* Aumentado limite máximo */
+    min-width: 800px;
+    /* Garante largura mínima decente */
+    max-height: 90vh;
+    /* Corrigido o excesso de altura (era 120vh, podia vazar a tela) */
     overflow-y: auto;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
@@ -42,7 +47,8 @@
     padding: 12px;
     border: 1px solid #ccc;
     text-align: center;
-    word-break: break-word; /* Previne estouro de texto */
+    word-break: break-word;
+    /* Previne estouro de texto */
 }
 
 .fechar-btn {
@@ -77,7 +83,8 @@
 .grid-header,
 .grid-row {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Atualizado para 5 colunas */
+    grid-template-columns: repeat(5, 1fr);
+    /* Atualizado para 5 colunas */
     padding: 10px;
     border-bottom: 1px solid #ccc;
     align-items: center;
@@ -86,4 +93,10 @@
 .grid-header {
     font-weight: bold;
     background-color: #f5f5f5;
+}
+
+.add-button-container {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 20px;
 }

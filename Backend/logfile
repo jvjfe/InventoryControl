@@ -30,3 +30,6 @@
 2025-05-09 14:11:55.635 -03 [2282] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
 2025-05-09 14:11:55.918 -03 [2283] LOG:  database system was shut down at 2025-05-08 23:03:02 -03
 2025-05-09 14:11:56.228 -03 [2282] LOG:  database system is ready to accept connections
+2025-05-09 15:41:43.322 -03 [2289] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-09 15:43:05.781 -03 [2289] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-09 15:43:08.302 -03 [4886] LOG:  using stale statistics instead of current ones because stats collector is not responding

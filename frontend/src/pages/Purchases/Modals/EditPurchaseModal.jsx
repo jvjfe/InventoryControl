@@ -9,8 +9,10 @@ function EditPurchaseModal({ compra, onClose, onUpdated }) {
     const [items, setItems] = useState(compra.items);
     const [products, setProducts] = useState([]);
 
+
+
     useEffect(() => {
-      const fetchProducts = async () => {
+        const fetchProducts = async () => {
             try {
                 const response = await axios.get("http://localhost:3333/products");
                 setProducts(response.data);
@@ -51,8 +53,8 @@ function EditPurchaseModal({ compra, onClose, onUpdated }) {
             };
 
             await axios.put(`http://localhost:3333/purchases/${compra.id}`, payload);
-            onClose(); 
-            onUpdated(); 
+            onClose();
+            onUpdated();
         } catch (error) {
             console.error("Erro ao atualizar compra:", error);
         }
@@ -125,7 +127,7 @@ function EditPurchaseModal({ compra, onClose, onUpdated }) {
                                             />
                                         </td>
                                         <td>
-                                            <DeleteButton type="button" onClick={() => handleRemoveItem(index)} tooltip="Deletar Compra"/>
+                                            <DeleteButton type="button" onClick={() => handleRemoveItem(index)} tooltip="Deletar Compra" />
                                         </td>
                                     </tr>
                                 ))}
