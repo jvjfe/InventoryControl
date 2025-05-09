@@ -1,5 +1,3 @@
----
-
 # InventoryControl
 
 InventoryControl is a project developed to manage inventory using **Express**, **Node.js**, **PostgreSQL**, and **Prisma** on the backend. The frontend is developed using **React**.
@@ -119,5 +117,3 @@ npm start
 * `npm run build` – Builds the app for production.
 * `npm test` – Launches the test runner.
 * `npm run eject` – Ejects the configuration (not reversible).
-
----
