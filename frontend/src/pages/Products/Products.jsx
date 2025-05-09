@@ -54,7 +54,7 @@ function Produtos() {
         if (!confirmacao) return;
 
         try {
-            const response = await axios.delete(`http://localhost:3333/products/${id}`);
+            await axios.delete(`http://localhost:3333/products/${id}`);
             fetchProdutos();
             toast.success("Produto deletado com sucesso!", {
                 position: "top-right",
@@ -110,7 +110,6 @@ function Produtos() {
             <div className="adicionar-wrapper">
                 <AddButton onClick={() => setModalAdicionar(true)} tooltip="Adicionar Produto" />
             </div>
-
 
             <div className="produtos-grid">
                 <div className="grid-header">

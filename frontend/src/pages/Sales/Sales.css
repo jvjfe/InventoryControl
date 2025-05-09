@@ -88,3 +88,9 @@
     font-weight: bold;
     background-color: #f5f5f5;
 }
+
+.adicionar-venda-btn {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 20px;
+}

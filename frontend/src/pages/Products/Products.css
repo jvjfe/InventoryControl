@@ -9,23 +9,26 @@
     margin-top: 20px;
 }
 
-.grid-header,
-.grid-row {
+.grid-header {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    /* 6 colunas para o cabeçalho */
     padding: 10px;
     background-color: #f0f0f0;
     border-radius: 5px;
-}
-
-.grid-header {
     font-weight: bold;
     background-color: #ddd;
+    text-align: left;
 }
 
 .grid-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    /* 6 colunas para as linhas de dados */
+    padding: 10px;
     background-color: #fff;
     transition: background-color 0.3s;
+    text-align: left;
 }
 
 .grid-row:hover {
@@ -34,22 +37,15 @@
 
 .grid-row span {
     overflow-wrap: break-word;
+    padding: 5px;
 }
 
 .acoes-coluna {
     display: flex;
     gap: 8px;
-    flex-wrap: wrap;
-}
-
-.grid-details {
-    background-color: #f3f3f3;
-    padding: 10px;
-    border-radius: 8px;
-    margin-left: 16px;
-    margin-bottom: 12px;
-    font-size: 0.9rem;
-    color: #333;
+    align-items: center;
+    justify-content: left;
+    flex-wrap: nowrap;
 }
 
 .adicionar-wrapper {

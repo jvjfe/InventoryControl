@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Sales.css";
-import EditSaleModal from "./Modals/EditSalesModal"; // Você precisará criar esse modal, se necessário
-import EditButton from "../../components/Buttons/EditButton/EditButton"; // O botão de editar
+import EditSaleModal from "./Modals/EditSalesModal";
+import AddSalesModal from "./Modals/AddSalesModal";
+import EditButton from "../../components/Buttons/EditButton/EditButton";
 import SeeMore from "../../components/Buttons/SeeMore/SeeMore";
+import DeleteButton from "../../components/Buttons/DeleteButton/DeleteButton";
+import AddButton from "../../components/Buttons/AddButton/AddButton";
 import { FaInfoCircle, FaEdit } from "react-icons/fa";
 
 function Vendas() {
     const [vendas, setVendas] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
+    const [addModalOpen, setAddModalOpen] = useState(false);
     const [itensVenda, setItensVenda] = useState([]);
     const [editVenda, setEditVenda] = useState(null);
     const [abrirEditar, setAbrirEditar] = useState(false);
@@ -44,9 +48,28 @@ function Vendas() {
         setAbrirEditar(true);
     };
 
+    const deletarVenda = async (id) => {
+        const confirm = window.confirm("Tem certeza que deseja deletar esta venda?");
+        if (!confirm) return;
+
+        try {
+            await axios.delete(`http://localhost:3333/sales/${id}`);
+            alert("Venda deletada com sucesso!");
+            fetchVendas();
+        } catch (error) {
+            console.error("Erro ao deletar venda:", error);
+            alert("Erro ao deletar venda.");
+        }
+    };
+
     return (
         <div className="vendas-container">
             <h2>Área de Vendas</h2>
+
+            <div className="adicionar-venda-btn" >
+                <AddButton onClick={() => setAddModalOpen(true)} tooltip="Adicionar Venda" />
+            </div>
+
             <div className="vendas-grid">
                 <div className="grid-header">
                     <span>Cliente</span>
@@ -70,6 +93,7 @@ function Vendas() {
                             <div className="action-buttons">
                                 <EditButton icon={FaEdit} onClick={() => abrirEditarVenda(venda)} tooltip="Editar Venda" />
                                 <SeeMore icon={FaInfoCircle} onClick={() => abrirModal(venda)} tooltip="Ver Venda" />
+                                <DeleteButton onClick={() => deletarVenda(venda.id)} tooltip="Deletar Venda" /> {/* Botão de deletar */}
                             </div>
                         </span>
                     </div>
@@ -81,6 +105,13 @@ function Vendas() {
                     venda={editVenda}
                     onClose={() => setAbrirEditar(false)}
                     onUpdated={fetchVendas}
+                />
+            )}
+
+            {addModalOpen && (
+                <AddSalesModal
+                    onClose={() => setAddModalOpen(false)}
+                    onAdded={fetchVendas}
                 />
             )}
 

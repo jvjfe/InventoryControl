@@ -64,7 +64,7 @@ function Compras() {
     return (
         <div className="compras-container">
             <h2>Área de Compras</h2>
-            <div className="add-button-container">
+            <div className="add-button-container" >
                 <AddButton onClick={() => setAbrirAdicionar(true)} tooltip="Adicionar Compra" />
             </div>
 
