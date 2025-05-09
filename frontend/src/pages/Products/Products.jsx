@@ -6,12 +6,13 @@ import "./Products.css";
 import EditButton from "../../components/Buttons/EditButton/EditButton";
 import EditProductModal from "./Modals/EditProductModal";
 import SeeMore from "../../components/Buttons/SeeMore/SeeMore";
+import DeleteButton from "../../components/Buttons/DeleteButton/DeleteButton"; // ✅ IMPORTADO
 
 function Produtos() {
     const [produtos, setProdutos] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
     const [produtoSelecionado, setProdutoSelecionado] = useState(null);
-    const [readOnly, setReadOnly] = useState(false); // novo estado
+    const [readOnly, setReadOnly] = useState(false);
 
     const fetchProdutos = async () => {
         try {
@@ -31,7 +32,7 @@ function Produtos() {
             ...produto,
             stock: parseInt(produto.stock, 10)
         };
-        setReadOnly(false); // modo edição
+        setReadOnly(false);
         setProdutoSelecionado(produtoComStockInt);
         setModalEditar(true);
     };
@@ -41,7 +42,7 @@ function Produtos() {
             ...produto,
             stock: parseInt(produto.stock, 10)
         };
-        setReadOnly(true); // modo visualização
+        setReadOnly(true);
         setProdutoSelecionado(produtoComStockInt);
         setModalEditar(true);
     };
@@ -52,20 +53,28 @@ function Produtos() {
         setReadOnly(false);
     };
 
-    // Função para formatar o número no padrão brasileiro
+    const handleDeleteProduto = async (id) => {
+        const confirmacao = window.confirm("Tem certeza que deseja deletar este produto?");
+        if (!confirmacao) return;
+
+        try {
+            await axios.delete(`http://localhost:3333/products/${id}`);
+            fetchProdutos(); // Atualiza a lista após deletar
+        } catch (error) {
+            console.error("Erro ao deletar produto:", error);
+        }
+    };
+
     const formatarPreco = (valor) => {
-        const precoNumerico = parseFloat(valor); // Converte para número
+        const precoNumerico = parseFloat(valor);
         if (isNaN(precoNumerico)) {
-            return "R$ 0,00"; // Se não for um número válido, retorna 0,00
+            return "R$ 0,00";
         }
 
-        // Formatação do valor com separador de milhar e duas casas decimais
-        const precoFormatado = new Intl.NumberFormat('pt-BR', {
+        return new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL',
         }).format(precoNumerico);
-
-        return precoFormatado;
     };
 
     return (
@@ -90,8 +99,9 @@ function Produtos() {
                                 <span data-label="Estoque">{produto.stock}</span>
                                 <span data-label="Preço">{formatarPreco(produto.price)}</span>
                                 <span data-label="Ações" className="acoes-coluna">
-                                    <EditButton onClick={() => abrirModalEditar(produto)} tooltip="Editar Produto" />    
+                                    <EditButton onClick={() => abrirModalEditar(produto)} tooltip="Editar Produto" />
                                     <SeeMore icon={FaInfoCircle} onClick={() => abrirModalVisualizar(produto)} tooltip="Ver Produto" />
+                                    <DeleteButton onClick={() => handleDeleteProduto(produto.id)} tooltip="Deletar Produto" /> {/* ✅ AQUI */}
                                 </span>
                             </div>
                         </FadeInWrapper>

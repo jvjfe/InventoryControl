@@ -4,6 +4,7 @@ import "./Purchases.css";
 import EditPurchaseModal from "./Modals/EditPurchaseModal";
 import EditButton from "../../components/Buttons/EditButton/EditButton";
 import SeeMore from "../../components/Buttons/SeeMore/SeeMore";
+import DeleteButton from "../../components/Buttons/DeleteButton/DeleteButton";
 import { FaInfoCircle, FaEdit } from "react-icons/fa";
 
 function Compras() {
@@ -38,6 +39,19 @@ function Compras() {
         setItensCompra([]);
         setCompraSelecionada(null);
     };
+    const deletarCompra = async (id) => {
+        const confirm = window.confirm("Tem certeza que deseja deletar esta compra?");
+        if (!confirm) return;
+
+        try {
+            await axios.delete(`http://localhost:3333/purchases/${id}`);
+            alert("Compra deletada com sucesso!");
+            fetchCompras();
+        } catch (error) {
+            console.error("Erro ao deletar compra:", error);
+            alert("Erro ao deletar compra.");
+        }
+    };
 
     const abrirEditarCompra = (compra) => {
         setEditCompra(compra);
@@ -70,7 +84,7 @@ function Compras() {
                             <div className="action-buttons">
                                 <EditButton icon={FaEdit} onClick={() => abrirEditarCompra(compra)} tooltip="Editar Compra" />
                                 <SeeMore icon={FaInfoCircle} onClick={() => abrirModal(compra)} tooltip="Ver Compra" />
-                            </div>
+                                <DeleteButton onClick={() => deletarCompra(compra.id)} tooltip="Deletar Compra" />                            </div>
                         </span>
                     </div>
                 ))}
