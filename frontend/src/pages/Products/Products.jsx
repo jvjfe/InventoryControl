@@ -6,13 +6,18 @@ import "./Products.css";
 import EditButton from "../../components/Buttons/EditButton/EditButton";
 import EditProductModal from "./Modals/EditProductModal";
 import SeeMore from "../../components/Buttons/SeeMore/SeeMore";
-import DeleteButton from "../../components/Buttons/DeleteButton/DeleteButton"; // ✅ IMPORTADO
+import DeleteButton from "../../components/Buttons/DeleteButton/DeleteButton";
+import AddProductModal from "./Modals/AddProductModal";
+import AddButton from "../../components/Buttons/AddButton/AddButton";
+import { toast, ToastContainer } from 'react-toastify';
+
 
 function Produtos() {
     const [produtos, setProdutos] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
     const [produtoSelecionado, setProdutoSelecionado] = useState(null);
     const [readOnly, setReadOnly] = useState(false);
+    const [modalAdicionar, setModalAdicionar] = useState(false);
 
     const fetchProdutos = async () => {
         try {
@@ -28,22 +33,13 @@ function Produtos() {
     }, []);
 
     const abrirModalEditar = (produto) => {
-        const produtoComStockInt = {
-            ...produto,
-            stock: parseInt(produto.stock, 10)
-        };
-        setReadOnly(false);
-        setProdutoSelecionado(produtoComStockInt);
+        setProdutoSelecionado(produto);
         setModalEditar(true);
     };
 
     const abrirModalVisualizar = (produto) => {
-        const produtoComStockInt = {
-            ...produto,
-            stock: parseInt(produto.stock, 10)
-        };
+        setProdutoSelecionado(produto);
         setReadOnly(true);
-        setProdutoSelecionado(produtoComStockInt);
         setModalEditar(true);
     };
 
@@ -58,10 +54,40 @@ function Produtos() {
         if (!confirmacao) return;
 
         try {
-            await axios.delete(`http://localhost:3333/products/${id}`);
-            fetchProdutos(); // Atualiza a lista após deletar
+            const response = await axios.delete(`http://localhost:3333/products/${id}`);
+            fetchProdutos();
+            toast.success("Produto deletado com sucesso!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         } catch (error) {
             console.error("Erro ao deletar produto:", error);
+            if (error.response && error.response.data.error) {
+                toast.error(error.response.data.error, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            } else {
+                toast.error("Erro ao tentar deletar o produto.", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
         }
     };
 
@@ -79,7 +105,13 @@ function Produtos() {
 
     return (
         <div className="produtos-container">
-            <h2>Área de Produtos</h2>
+            <h2>Produtos</h2>
+
+            <div className="adicionar-wrapper">
+                <AddButton onClick={() => setModalAdicionar(true)} tooltip="Adicionar Produto" />
+            </div>
+
+
             <div className="produtos-grid">
                 <div className="grid-header">
                     <span>Nome</span>
@@ -101,7 +133,7 @@ function Produtos() {
                                 <span data-label="Ações" className="acoes-coluna">
                                     <EditButton onClick={() => abrirModalEditar(produto)} tooltip="Editar Produto" />
                                     <SeeMore icon={FaInfoCircle} onClick={() => abrirModalVisualizar(produto)} tooltip="Ver Produto" />
-                                    <DeleteButton onClick={() => handleDeleteProduto(produto.id)} tooltip="Deletar Produto" /> {/* ✅ AQUI */}
+                                    <DeleteButton onClick={() => handleDeleteProduto(produto.id)} tooltip="Deletar Produto" />
                                 </span>
                             </div>
                         </FadeInWrapper>
@@ -109,6 +141,7 @@ function Produtos() {
                 ))}
             </div>
 
+            {/* Modal de Edição ou Visualização */}
             {modalEditar && produtoSelecionado && (
                 <EditProductModal
                     product={produtoSelecionado}
@@ -117,6 +150,14 @@ function Produtos() {
                     readOnly={readOnly}
                 />
             )}
+
+            {modalAdicionar && (
+                <AddProductModal
+                    onClose={() => setModalAdicionar(false)} // Fecha o modal de adicionar produto
+                    onAdd={fetchProdutos} // Atualiza a lista de produtos após adicionar
+                />
+            )}
+            <ToastContainer />
         </div>
     );
 }

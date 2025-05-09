@@ -9,7 +9,8 @@
     margin-top: 20px;
 }
 
-.grid-header, .grid-row {
+.grid-header,
+.grid-row {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     padding: 10px;
@@ -49,4 +50,10 @@
     margin-bottom: 12px;
     font-size: 0.9rem;
     color: #333;
+}
+
+.adicionar-wrapper {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 20px;
 }

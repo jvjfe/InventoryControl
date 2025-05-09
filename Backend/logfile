@@ -20,3 +20,13 @@
 2025-05-08 15:16:12.729 -03 [10437] STATEMENT:  SELECT "id", "checksum", "finished_at", "migration_name", "logs", "rolled_back_at", "started_at", "applied_steps_count" FROM "_prisma_migrations" ORDER BY "started_at" ASC
 2025-05-08 15:16:14.212 -03 [10443] FATAL:  terminating connection due to administrator command
 2025-05-08 15:16:14.615 -03 [10444] FATAL:  terminating connection due to administrator command
+2025-05-08 23:03:02.258 -03 [8901] LOG:  received smart shutdown request
+2025-05-08 23:03:02.404 -03 [8901] LOG:  background worker "logical replication launcher" (PID 8908) exited with exit code 1
+2025-05-08 23:03:02.404 -03 [8903] LOG:  shutting down
+2025-05-08 23:03:02.546 -03 [8901] LOG:  database system is shut down
+2025-05-09 14:11:55.582 -03 [2282] LOG:  starting PostgreSQL 14.17 (Homebrew) on x86_64-apple-darwin20.6.0, compiled by Apple clang version 12.0.5 (clang-1205.0.22.11), 64-bit
+2025-05-09 14:11:55.634 -03 [2282] LOG:  listening on IPv6 address "::1", port 5432
+2025-05-09 14:11:55.634 -03 [2282] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-05-09 14:11:55.635 -03 [2282] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-05-09 14:11:55.918 -03 [2283] LOG:  database system was shut down at 2025-05-08 23:03:02 -03
+2025-05-09 14:11:56.228 -03 [2282] LOG:  database system is ready to accept connections
