@@ -88,6 +88,8 @@ The frontend is built using **React** with **React Router**, **Axios**, and **Re
 * React Toastify (v11.0.5)
 * React Icons (v5.5.0)
 * Framer Motion (v12.9.7)
+* Recharts (v10.9.2)
+* DayJS (v10.9.2)
 
 ### Installation
 

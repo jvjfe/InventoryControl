@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./AddPurchaseModal.css";
+import DeleteButton from "../../../components/Buttons/DeleteButton/DeleteButton";
+
 
 function AddPurchaseModal({ onClose, onCreated }) {
     const [fornecedor, setFornecedor] = useState("");
@@ -123,13 +125,7 @@ function AddPurchaseModal({ onClose, onCreated }) {
                                             />
                                         </td>
                                         <td>
-                                            <button
-                                                type="button"
-                                                className="cancel-btn"
-                                                onClick={() => removerItem(index)}
-                                            >
-                                                Remover
-                                            </button>
+                                            <DeleteButton type="button" className="cancel-btn" onClick={() => removerItem(index)} tooltip="Deletar Compra" />
                                         </td>
                                     </tr>
                                 ))}
