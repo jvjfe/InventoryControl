@@ -1,70 +1,101 @@
+````md
 # InventoryControl
 
 InventoryControl is a project developed to manage inventory using **Express**, **Node.js**, **PostgreSQL**, and **Prisma** on the backend. The frontend is developed using **React**.
+
+---
+
+## UML Planning
+
+![UML](docs/UML.png)
+
+The image above represents the initial planning and structure of the system, covering its main entities and their relationships.
+
+---
+
+## How It Works
+
+### Homepage & Dashboards
+
+![Homepage](docs/img1.png)
+
+The homepage provides an overview of the system. It features two dashboards:
+- One displays the **last sales from the past 10 hours**.
+- The other shows the **top 3 products with the highest stock quantity**.
+
+---
+
+### Product Purchase Simulation
+
+![Purchase Simulation](docs/img2.png)
+
+This section simulates **adding products to stock**:
+- Each product includes a **quantity**, **creation and update dates**, and a **detailed table** listing all products and the **total value** of the transaction.
+
+---
+
+### Product Sales Simulation
+
+![Sales Simulation](docs/img3.png)
+
+Similar to the previous section, but this area simulates **product sales**:
+- It tracks product quantities, timestamps, and total sales per transaction.
+
+---
+
+### Product Management
+
+![Product Control](docs/img4.png)
+
+This area displays all your registered products:
+- You can manage the **status**, **name**, and **price** of each item.
+- It also includes **action buttons** similar to those in the sales and purchases pages.
+
+---
 
 ## Backend Setup
 
 ### Requirements
 
-* Node.js (v22.14.0)
-* PostgreSQL (v14)
-* Prisma (v6.6.0)
+- Node.js (v22.14.0)
+- PostgreSQL (v14)
+- Prisma (v6.6.0)
 
 ### Other NPM Packages
 
-* Swagger (v5.4.1)
-* Express (v5.1.0)
-* Chalk (v5.4.1)
-* Morgan (v1.10.0)
-* Nodemon (v3.1.10)
-* Uuid (v11.1.0)
+- Swagger (v5.4.1)
+- Express (v5.1.0)
+- Chalk (v5.4.1)
+- Morgan (v1.10.0)
+- Nodemon (v3.1.10)
+- Uuid (v11.1.0)
 
 ### Installation
-
-1. Clone the repository:
 
 ```bash
 git clone https://github.com/jvjfe/InventoryControl.git
 cd InventoryControl
-```
-
-2. Navigate to the backend directory:
-
-```bash
 cd src
-```
-
-3. Install the dependencies:
-
-```bash
 npm install
-```
+````
 
-4. Create a `.env` file in the root of the backend folder and define your database URL:
+Create a `.env` file:
 
 ```env
 DATABASE_URL="postgresql://your_user:your_password@localhost:5432/your_database"
 ```
 
-> Replace `your_user`, `your_password`, `localhost`, `5432`, and `your_database` with your PostgreSQL configuration.
-
-5. Generate the Prisma client:
+Generate the Prisma client:
 
 ```bash
 npx prisma generate
 ```
 
-6. Run the migrations (if applicable):
+Run the app:
 
 ```bash
 npm start
-```
-
-> You can also use `npx nodemon ./src/server.js`, `npm start` is set in package.json
-
-7. Start the development server:
-
-```bash
+# or for development:
 npm run dev
 ```
 
@@ -72,17 +103,16 @@ npm run dev
 
 ## Frontend Setup
 
-The frontend is built using **React** with **React Router**, **Axios**, and **React Toastify** for routing, API requests, and notifications.
+Built with **React**, **Axios**, **React Router**, and **Toastify**.
 
 ### Requirements
 
 * Node.js (v22.14.0)
 * A modern browser
 
-### Core NPM Packages
+### Core Packages
 
 * React (v19.1.0)
-* React DOM (v19.1.0)
 * React Router DOM (v7.5.3)
 * Axios (v1.9.0)
 * React Toastify (v11.0.5)
@@ -93,29 +123,21 @@ The frontend is built using **React** with **React Router**, **Axios**, and **Re
 
 ### Installation
 
-1. Navigate to the frontend directory:
-
 ```bash
 cd frontend
-```
-
-2. Install the dependencies:
-
-```bash
 npm install
-```
-
-3. Start the development server:
-
-```bash
 npm start
 ```
 
-> The application will be available at `http://localhost:3000`
+> The app will be available at `http://localhost:3000`.
 
-### Available Scripts
+---
 
-* `npm start` – Runs the app in development mode.
-* `npm run build` – Builds the app for production.
-* `npm test` – Launches the test runner.
-* `npm run eject` – Ejects the configuration (not reversible).
+## Scripts
+
+* `npm start` – Run the development server.
+* `npm run build` – Create a production build.
+* `npm test` – Run tests.
+* `npm run eject` – Ejects the config (irreversible).
+
+```
