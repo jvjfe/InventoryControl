@@ -37,3 +37,12 @@
 2025-05-09 22:15:41.648 -03 [2289] LOG:  using stale statistics instead of current ones because stats collector is not responding
 2025-05-09 22:16:24.846 -03 [2289] LOG:  using stale statistics instead of current ones because stats collector is not responding
 2025-05-09 22:16:42.166 -03 [2289] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-10 09:34:32.086 -03 [2289] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-10 09:34:32.431 -03 [19198] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-10 09:34:58.284 -03 [2289] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-10 09:35:43.503 -03 [2289] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-10 09:36:01.308 -03 [19215] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-10 09:36:14.145 -03 [2289] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-10 09:36:27.659 -03 [19309] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-10 09:36:40.470 -03 [2289] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2025-05-10 09:37:55.979 -03 [19382] LOG:  using stale statistics instead of current ones because stats collector is not responding

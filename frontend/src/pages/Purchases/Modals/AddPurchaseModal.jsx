@@ -3,7 +3,6 @@ import axios from "axios";
 import "./AddPurchaseModal.css";
 import DeleteButton from "../../../components/Buttons/DeleteButton/DeleteButton";
 
-
 function AddPurchaseModal({ onClose, onCreated }) {
     const [fornecedor, setFornecedor] = useState("");
     const [pagamento, setPagamento] = useState("");
@@ -38,6 +37,35 @@ function AddPurchaseModal({ onClose, onCreated }) {
     };
 
     const criarCompra = async () => {
+        // Validação dos campos de Fornecedor e Pagamento
+        if (!fornecedor.trim() || !pagamento.trim()) {
+            alert("Por favor, preencha os campos de Fornecedor e Pagamento.");
+            return;
+        }
+
+        // Verifica se ao menos um item foi adicionado
+        if (itens.length === 0) {
+            alert("Adicione pelo menos um item à compra.");
+            return;
+        }
+
+        // Validação de cada item
+        for (let i = 0; i < itens.length; i++) {
+            const item = itens[i];
+            if (!item.product_id) {
+                alert(`Selecione um produto para o item ${i + 1}.`);
+                return;
+            }
+            if (!item.qty_total || item.qty_total < 1) {
+                alert(`Verifique a quantidade do item ${i + 1}.`);
+                return;
+            }
+            if (item.unit_price === null || item.unit_price < 0) {
+                alert(`Verifique o preço unitário do item ${i + 1}.`);
+                return;
+            }
+        }
+
         try {
             await axios.post("http://localhost:3333/purchases", {
                 supplier_name: fornecedor,
@@ -63,6 +91,7 @@ function AddPurchaseModal({ onClose, onCreated }) {
                         <input
                             value={fornecedor}
                             onChange={(e) => setFornecedor(e.target.value)}
+                            required
                         />
                     </label>
 
@@ -71,6 +100,7 @@ function AddPurchaseModal({ onClose, onCreated }) {
                         <input
                             value={pagamento}
                             onChange={(e) => setPagamento(e.target.value)}
+                            required
                         />
                     </label>
 
@@ -94,6 +124,7 @@ function AddPurchaseModal({ onClose, onCreated }) {
                                                 onChange={(e) =>
                                                     atualizarItem(index, "product_id", e.target.value)
                                                 }
+                                                required
                                             >
                                                 <option value="">Selecione o Produto</option>
                                                 {produtos.map((p) => (
@@ -109,8 +140,9 @@ function AddPurchaseModal({ onClose, onCreated }) {
                                                 min="1"
                                                 value={item.qty_total}
                                                 onChange={(e) =>
-                                                    atualizarItem(index, "qty_total", parseInt(e.target.value))
+                                                    atualizarItem(index, "qty_total", parseInt(e.target.value, 10))
                                                 }
+                                                required
                                             />
                                         </td>
                                         <td>
@@ -122,10 +154,16 @@ function AddPurchaseModal({ onClose, onCreated }) {
                                                 onChange={(e) =>
                                                     atualizarItem(index, "unit_price", parseFloat(e.target.value))
                                                 }
+                                                required
                                             />
                                         </td>
                                         <td>
-                                            <DeleteButton type="button" className="cancel-btn" onClick={() => removerItem(index)} tooltip="Deletar Compra" />
+                                            <DeleteButton
+                                                type="button"
+                                                className="cancel-btn"
+                                                onClick={() => removerItem(index)}
+                                                tooltip="Deletar Compra"
+                                            />
                                         </td>
                                     </tr>
                                 ))}
