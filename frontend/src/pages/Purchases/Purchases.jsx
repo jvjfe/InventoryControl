@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Purchases.css";
 import EditPurchaseModal from "./Modals/EditPurchaseModal";
 import EditButton from "../../components/Buttons/EditButton/EditButton";
+import FadeInWrapper from "../../components/Effects/FadeInWrapper";
 import SeeMore from "../../components/Buttons/SeeMore/SeeMore";
 import DeleteButton from "../../components/Buttons/DeleteButton/DeleteButton";
 import AddPurchaseModal from "./Modals/AddPurchaseModal";
@@ -76,24 +77,26 @@ function Compras() {
                     <span>Total</span>
                     <span>Ações</span>
                 </div>
-                {compras.map((compra) => (
-                    <div key={compra.id} className="grid-row">
-                        <span data-label="Fornecedor">{compra.supplier_name || "N/A"}</span>
-                        <span data-label="Pagamento">{compra.payment_method || "N/A"}</span>
-                        <span data-label="Data">
-                            {compra.created_at ? new Date(compra.created_at).toLocaleDateString("pt-BR") : "N/A"}
-                        </span>
-                        <span data-label="Total">
-                            {(compra.items?.reduce((acc, item) => acc + item.qty_total * item.unit_price, 0) || 0)
-                                .toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
-                        </span>
-                        <span data-label="Ações">
-                            <div className="action-buttons">
-                                <EditButton icon={FaEdit} onClick={() => abrirEditarCompra(compra)} tooltip="Editar Compra" />
-                                <SeeMore icon={FaInfoCircle} onClick={() => abrirModal(compra)} tooltip="Ver Compra" />
-                                <DeleteButton onClick={() => deletarCompra(compra.id)} tooltip="Deletar Compra" />                            </div>
-                        </span>
-                    </div>
+                {compras.map((compra, i) => (
+                    <FadeInWrapper key={compra.id} delay={i * 0.05}>
+                        <div key={compra.id} className="grid-row">
+                            <span data-label="Fornecedor">{compra.supplier_name || "N/A"}</span>
+                            <span data-label="Pagamento">{compra.payment_method || "N/A"}</span>
+                            <span data-label="Data">
+                                {compra.created_at ? new Date(compra.created_at).toLocaleDateString("pt-BR") : "N/A"}
+                            </span>
+                            <span data-label="Total">
+                                {(compra.items?.reduce((acc, item) => acc + item.qty_total * item.unit_price, 0) || 0)
+                                    .toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+                            </span>
+                            <span data-label="Ações">
+                                <div className="action-buttons">
+                                    <EditButton icon={FaEdit} onClick={() => abrirEditarCompra(compra)} tooltip="Editar Compra" />
+                                    <SeeMore icon={FaInfoCircle} onClick={() => abrirModal(compra)} tooltip="Ver Compra" />
+                                    <DeleteButton onClick={() => deletarCompra(compra.id)} tooltip="Deletar Compra" />                            </div>
+                            </span>
+                        </div>
+                    </FadeInWrapper>
                 ))}
             </div>
             {abrirAdicionar && (

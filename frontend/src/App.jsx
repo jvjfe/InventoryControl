@@ -1,13 +1,19 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+  Link
+} from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import "./styles/global.css";
+
 
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Compras from "./pages/Purchases/Purchases.jsx";
 import Vendas from "./pages/Sales/Sales.jsx";
-import PageWrapper from "./components/Effects/PageWrapper.jsx";
 import Produtos from "./pages/Products/Products.jsx";
+import PageWrapper from "./components/Effects/PageWrapper.jsx";
 
 function AnimatedRoutes() {
   const location = useLocation();

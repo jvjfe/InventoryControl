@@ -128,3 +128,30 @@
 .modal-buttons .cancel-btn:hover {
     background-color: #c82333;
 }
+
+.vendas-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.grid-header,
+.grid-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+}
+
+.grid-header {
+    font-weight: bold;
+    background-color: #f5f5f5;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}

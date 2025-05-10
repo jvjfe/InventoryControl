@@ -111,6 +111,10 @@
     transition: 0.2s ease;
 }
 
+label {
+    background-color: white;
+}
+
 .modal-buttons .save-btn {
     background-color: #28a745;
     color: white;

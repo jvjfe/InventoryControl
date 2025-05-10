@@ -17,7 +17,7 @@ const modalVariants = {
 
 const modalTransition = {
     type: "tween",
-    duration: 0.5, // Definindo a duração da transição para o fade-in
+    duration: 0.5,
 };
 
 function EditProductModal({ product, onClose, onUpdate, readOnly }) {
@@ -56,8 +56,8 @@ function EditProductModal({ product, onClose, onUpdate, readOnly }) {
         e.preventDefault();
         try {
             await axios.put(`http://localhost:3333/products/${product.id}`, formData);
-            onUpdate(); 
-            setIsClosing(true); // Acionar o fade-out antes de fechar
+            onUpdate();
+            setIsClosing(true);
         } catch (error) {
             console.error("Erro ao atualizar produto:", error);
         }

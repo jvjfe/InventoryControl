@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Sales.css";
+import FadeInWrapper from "../../components/Effects/FadeInWrapper";
 import EditSaleModal from "./Modals/EditSalesModal";
 import AddSalesModal from "./Modals/AddSalesModal";
 import EditButton from "../../components/Buttons/EditButton/EditButton";
@@ -65,7 +66,6 @@ function Vendas() {
     return (
         <div className="vendas-container">
             <h2>Área de Vendas</h2>
-
             <div className="adicionar-venda-btn" >
                 <AddButton onClick={() => setAddModalOpen(true)} tooltip="Adicionar Venda" />
             </div>
@@ -78,25 +78,27 @@ function Vendas() {
                     <span>Total</span>
                     <span>Ações</span>
                 </div>
-                {vendas.map((venda) => (
-                    <div key={venda.id} className="grid-row">
-                        <span data-label="Cliente">{venda.customer_name || "N/A"}</span>
-                        <span data-label="Pagamento">{venda.payment_method || "N/A"}</span>
-                        <span data-label="Data">
-                            {venda.created_at ? new Date(venda.created_at).toLocaleDateString("pt-BR") : "N/A"}
-                        </span>
-                        <span data-label="Total">
-                            {(venda.items?.reduce((acc, item) => acc + item.qty_total * item.unit_price, 0) || 0)
-                                .toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
-                        </span>
-                        <span data-label="Ações">
-                            <div className="action-buttons">
-                                <EditButton icon={FaEdit} onClick={() => abrirEditarVenda(venda)} tooltip="Editar Venda" />
-                                <SeeMore icon={FaInfoCircle} onClick={() => abrirModal(venda)} tooltip="Ver Venda" />
-                                <DeleteButton onClick={() => deletarVenda(venda.id)} tooltip="Deletar Venda" /> {/* Botão de deletar */}
-                            </div>
-                        </span>
-                    </div>
+                {vendas.map((venda, i) => (
+                    <FadeInWrapper key={venda.id} delay={i * 0.05}>
+                        <div key={venda.id} className="grid-row">
+                            <span data-label="Cliente">{venda.customer_name || "N/A"}</span>
+                            <span data-label="Pagamento">{venda.payment_method || "N/A"}</span>
+                            <span data-label="Data">
+                                {venda.created_at ? new Date(venda.created_at).toLocaleDateString("pt-BR") : "N/A"}
+                            </span>
+                            <span data-label="Total">
+                                {(venda.items?.reduce((acc, item) => acc + item.qty_total * item.unit_price, 0) || 0)
+                                    .toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+                            </span>
+                            <span data-label="Ações">
+                                <div className="action-buttons">
+                                    <EditButton icon={FaEdit} onClick={() => abrirEditarVenda(venda)} tooltip="Editar Venda" />
+                                    <SeeMore icon={FaInfoCircle} onClick={() => abrirModal(venda)} tooltip="Ver Venda" />
+                                    <DeleteButton onClick={() => deletarVenda(venda.id)} tooltip="Deletar Venda" /> {/* Botão de deletar */}
+                                </div>
+                            </span>
+                        </div>
+                    </FadeInWrapper>
                 ))}
             </div>
 

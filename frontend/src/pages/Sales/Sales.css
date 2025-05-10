@@ -77,11 +77,13 @@
 .grid-header,
 .grid-row {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    /* Atualizado para 5 colunas */
+    grid-template-columns: repeat(6, 1fr);
     padding: 10px;
-    border-bottom: 1px solid #ccc;
-    align-items: center;
+    color: black;
+    background-color: darkgray;
+    border-radius: 20px;
+    font-weight: bold;
+    text-align: left;
 }
 
 .grid-header {
@@ -93,4 +95,16 @@
     display: flex;
     justify-content: left;
     margin-bottom: 20px;
+}
+
+button {
+    padding: 0.6rem 0.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    background-color: #28a745;
+    color: white;
 }

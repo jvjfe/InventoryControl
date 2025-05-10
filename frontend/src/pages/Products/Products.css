@@ -1,6 +1,11 @@
 .produtos-container {
     padding: 20px;
     font-family: Arial, sans-serif;
+    color: black;
+}
+
+h2 {
+    color: rgb(207, 207, 207)
 }
 
 .produtos-grid {
@@ -12,27 +17,26 @@
 .grid-header {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    /* 6 colunas para o cabeçalho */
     padding: 10px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
+    color: black;
+    background-color: darkgray;
+    border-radius: 20px;
     font-weight: bold;
-    background-color: #ddd;
     text-align: left;
 }
 
 .grid-row {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    /* 6 colunas para as linhas de dados */
     padding: 10px;
-    background-color: #fff;
+    background-color: #e3e3e3;
+    border-radius: 20px;
     transition: background-color 0.3s;
     text-align: left;
 }
 
 .grid-row:hover {
-    background-color: #f9f9f9;
+    background-color: #b1b1b1;
 }
 
 .grid-row span {

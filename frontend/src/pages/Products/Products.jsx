@@ -140,7 +140,6 @@ function Produtos() {
                 ))}
             </div>
 
-            {/* Modal de Edição ou Visualização */}
             {modalEditar && produtoSelecionado && (
                 <EditProductModal
                     product={produtoSelecionado}
@@ -152,8 +151,8 @@ function Produtos() {
 
             {modalAdicionar && (
                 <AddProductModal
-                    onClose={() => setModalAdicionar(false)} // Fecha o modal de adicionar produto
-                    onAdd={fetchProdutos} // Atualiza a lista de produtos após adicionar
+                    onClose={() => setModalAdicionar(false)}
+                    onAdd={fetchProdutos}
                 />
             )}
             <ToastContainer />
